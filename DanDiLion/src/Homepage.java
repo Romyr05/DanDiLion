@@ -10,7 +10,8 @@ import apps.clock;
 
 public class Homepage extends JFrame implements ActionListener{
     JButton clockButton;
-    JPanel panel;
+    JPanel panel, lowAppPanel;
+    JPanel panelTime, statusBar;
 
     Homepage(){
         //Frame
@@ -21,10 +22,14 @@ public class Homepage extends JFrame implements ActionListener{
         this.setBackground(Color.red);
         this.setLayout(new BorderLayout());
 
-        
-        panel = CreateAppPanel();
+        statusBar = createStatusBar();
+        lowAppPanel = createBorderAppPanel();
+        panelTime = timePanel();
 
-        this.add(panel, BorderLayout.SOUTH);
+        this.add(statusBar,BorderLayout.NORTH);
+        this.add(panelTime, BorderLayout.CENTER);
+        this.add(lowAppPanel, BorderLayout.SOUTH);
+
         validate();
     }
 
@@ -38,16 +43,26 @@ public class Homepage extends JFrame implements ActionListener{
     }
 
 
+    //Make an abstract panel for all of them
+    public JPanel createStatusBar(){
+        JPanel statusBar = new JPanel();
+        statusBar.setPreferredSize(new Dimension(0,35));
+        statusBar.setBackground(Color.green);
+        return statusBar;
+    }
 
-    public JPanel CreateAppPanel(){
-        JPanel panel = new JPanel();
-        panel.setSize(500,500);
-        panel.setLayout (new FlowLayout());
-        panel.setBackground(Color.gray);
+    public JPanel createBorderAppPanel(){
+        JPanel panelBorderApp = new JPanel();
+        panelBorderApp.setPreferredSize(new Dimension(0,500));
+        panelBorderApp.setBackground(Color.gray);
+        return panelBorderApp;
+    }
 
-        
-
-        return panel;
+    public JPanel timePanel(){
+        JPanel panelTime = new JPanel();
+        panelTime.setPreferredSize(new Dimension(0,100));
+        panelTime.setBackground(Color.blue);
+        return panelTime;
     }
 
 
