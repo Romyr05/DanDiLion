@@ -10,8 +10,9 @@ import apps.clock;
 
 public class Homepage extends JFrame implements ActionListener{
     JButton clockButton;
-    JPanel panel, lowAppPanel;
+    JPanel panel, appPanel;
     JPanel panelTime, statusBar;
+    JPanel upperApps,test;
 
     Homepage(){
         //Frame
@@ -23,12 +24,33 @@ public class Homepage extends JFrame implements ActionListener{
         this.setLayout(new BorderLayout());
 
         statusBar = createStatusBar();
-        lowAppPanel = createBorderAppPanel();
+        appPanel = createBorderAppPanel();
         panelTime = timePanel();
+
+        ImageIcon icon = new ImageIcon("assets/clock.jpg"); 
+
+        JPanel clockApp = CreateUpperApps();
+        JPanel clockApp2 = CreateUpperApps();
+        JPanel clockApp3 = CreateUpperApps();
+        JPanel clockApp4 = CreateUpperApps();
+        JPanel clockApp5 = CreateUpperApps();
+        JPanel clockApp6 = CreateUpperApps();
+        JPanel clockApp7 = CreateUpperApps();
+        JPanel clockApp8 = CreateUpperApps();
+
+        appPanel.add(clockApp);
+        appPanel.add(clockApp2);
+        appPanel.add(clockApp3);
+        appPanel.add(clockApp4);
+        appPanel.add(clockApp5);
+        appPanel.add(clockApp6);
+        appPanel.add(clockApp7);
+        appPanel.add(clockApp8);
+
 
         this.add(statusBar,BorderLayout.NORTH);
         this.add(panelTime, BorderLayout.CENTER);
-        this.add(lowAppPanel, BorderLayout.SOUTH);
+        this.add(appPanel, BorderLayout.SOUTH);
 
         validate();
     }
@@ -51,10 +73,13 @@ public class Homepage extends JFrame implements ActionListener{
         return statusBar;
     }
 
+
     public JPanel createBorderAppPanel(){
         JPanel panelBorderApp = new JPanel();
+        panelBorderApp.setLayout(new GridLayout(2,4,20,20));
         panelBorderApp.setPreferredSize(new Dimension(0,500));
         panelBorderApp.setBackground(Color.gray);
+        panelBorderApp.setBorder(BorderFactory.createEmptyBorder(10, 20 ,10 ,20 ));
         return panelBorderApp;
     }
 
@@ -63,6 +88,19 @@ public class Homepage extends JFrame implements ActionListener{
         panelTime.setPreferredSize(new Dimension(0,100));
         panelTime.setBackground(Color.blue);
         return panelTime;
+    }
+
+    public JPanel CreateUpperApps(){
+        JPanel Apps = new JPanel();     
+        Apps.setLayout(new BorderLayout());   // removes gaps
+        Apps.setPreferredSize(new Dimension(20,20));
+        Apps.setBackground(Color.red);
+         
+        JButton appButton = new JButton();
+
+        Apps.add(appButton, BorderLayout.CENTER);
+
+        return Apps;
     }
 
 
