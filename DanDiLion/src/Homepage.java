@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import apps.clock;
+import apps.Clock;
 
 public class Homepage extends JFrame implements ActionListener{
     JButton clockButton;
@@ -46,7 +46,7 @@ public class Homepage extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == clockButton){
             this.dispose();
-            clock window = new clock();
+            Clock window = new Clock();
             System.out.println("test");
         }
     }
