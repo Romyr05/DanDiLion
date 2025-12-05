@@ -128,6 +128,100 @@ public class Homepage extends JFrame implements ActionListener{
         return dateToday;
     }
 
+    public JPanel weatherPanel(){
+        JPanel weatherPanel = new JPanel();
+        weatherPanel.setOpaque(false);
+        weatherPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 5));
+
+        JPanel weatherIcon = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.setColor(Color.WHITE);
+                
+                // Draw sun
+                // Sun circle
+                g2d.fillOval(5, 5, 20, 20);
+                
+                // Sun rays
+                int centerX = 15;
+                int centerY = 15;
+                int rayLength = 6;
+                for (int i = 0; i < 8; i++) {
+                    double angle = Math.PI * 2 * i / 8;
+                    int x1 = centerX + (int)(Math.cos(angle) * 13);
+                    int y1 = centerY + (int)(Math.sin(angle) * 13);
+                    int x2 = centerX + (int)(Math.cos(angle) * (13 + rayLength));
+                    int y2 = centerY + (int)(Math.sin(angle) * (13 + rayLength));
+                    g2d.setStroke(new BasicStroke(2));
+                    g2d.drawLine(x1, y1, x2, y2);
+                }
+                
+                // Draw cloud (semi-transparent)
+                g2d.setColor(new Color(255, 255, 255, 180));
+                g2d.fillOval(18, 18, 12, 10);
+                g2d.fillOval(25, 20, 10, 8);
+                g2d.fillOval(22, 22, 10, 8);
+            }
+        };
+        weatherIcon.setPreferredSize(new Dimension(50, 45));
+        weatherIcon.setOpaque(false);
+
+
+        //Temperature
+        JLabel tempLabel = new JLabel("+18°C");
+        tempLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        tempLabel.setForeground(Color.WHITE);
+        
+        weatherPanel.add(weatherIcon);
+        weatherPanel.add(tempLabel);
+
+        return weatherPanel;
+    }
+
+    public JPanel searchBox(){
+        JPanel searchBox = new JPanel();
+        searchBox.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        searchBox.setPreferredSize(new Dimension(380, 45));
+        searchBox.setMaximumSize(new Dimension(380, 45));
+        searchBox.setBorder(BorderFactory.createLineBorder(new Color(200, 150, 255, 100), 3, true));
+        searchBox.setOpaque(false);
+
+        // Search icon
+        JPanel searchIcon = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.setColor(new Color(200, 200, 255));
+                g2d.setStroke(new BasicStroke(2.5f));
+                
+                // Draw magnifying glass circle
+                g2d.drawOval(2, 2, 12, 12);
+                
+                // Draw handle
+                g2d.drawLine(12, 12, 18, 18);
+            }
+        };
+        searchIcon.setPreferredSize(new Dimension(20, 20));
+        searchIcon.setOpaque(false);
+
+
+        JLabel searchLabel =new JLabel("Search");
+        searchLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        searchLabel.setForeground(Color.WHITE);
+        searchLabel.setOpaque(false);
+        
+        searchBox.add(searchIcon);
+        searchBox.add(searchLabel); 
+
+        return searchBox;
+    }
+
+
     public JPanel timePanel(){
         JPanel panelTime = new JPanel();
         panelTime.setLayout(new BoxLayout(panelTime,BoxLayout.PAGE_AXIS));
@@ -137,13 +231,24 @@ public class Homepage extends JFrame implements ActionListener{
         panelTime.add(bigTimer());
 
        // Add small spacing between time and date
-        panelTime.add(Box.createRigidArea(new Dimension(0, -300)));
+        panelTime.add(Box.createRigidArea(new Dimension(0, -200)));
 
         panelTime.add(dateToday());
+
+        panelTime.add(Box.createRigidArea(new Dimension(0,-70)));
+
+        panelTime.add(weatherPanel());
+
+        panelTime.add(Box.createRigidArea(new Dimension(0,-70)));
+
+        panelTime.add(searchBox());
+
+        panelTime.add(Box.createRigidArea(new Dimension(0,40)));
 
         return panelTime;
     }
 
+    
 
 
     public JPanel statusBatteryWifiPanel(){
@@ -197,6 +302,8 @@ public class Homepage extends JFrame implements ActionListener{
         
         return statusBatteryWifiPanel;
     }
+
+
 
     public JPanel statusTimePanel(){
         String timestring = timeFormat();
@@ -342,7 +449,5 @@ public class Homepage extends JFrame implements ActionListener{
             
         return lowerApps;
     }
-
-
 
 }
