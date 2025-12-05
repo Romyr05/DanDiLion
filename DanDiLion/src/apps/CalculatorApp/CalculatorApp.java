@@ -1,4 +1,4 @@
-package apps;
+package apps.CalculatorApp;
 
 public class CalculatorApp {
     

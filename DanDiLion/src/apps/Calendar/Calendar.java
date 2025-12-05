@@ -1,4 +1,4 @@
-package apps;
+package apps.Calendar;
 
 public class Calendar {
     

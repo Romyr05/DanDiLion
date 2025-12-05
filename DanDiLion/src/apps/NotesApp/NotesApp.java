@@ -1,4 +1,4 @@
-package apps;
+package apps.NotesApp;
 
 public class NotesApp {
     

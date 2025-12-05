@@ -1,33 +1,54 @@
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+package homepage;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import apps.Clock;
 
-public class Homepage extends JFrame implements ActionListener{
+import apps.Clock.Alarm;
+import apps.Clock.Clock;
+import homepage.newGUI.BatteryIcon;
+import homepage.newGUI.SearchIcon;
+import homepage.newGUI.WifiIcon;
+
+import java.awt.geom.RoundRectangle2D;
+
+public class Homepage extends BaseApp implements ActionListener{
     JButton clockButton;
     JPanel panel, appPanel;
     JPanel panelTime, statusBar;
     JPanel upperApps, lowerApps;
-    private JLabel statusTimeLabel;
     private JLabel bigTimerLabel;
     private JButton upperBtn1, upperBtn2, upperBtn3, upperBtn4, upperBtn5, upperBtn6, upperBtn7, upperBtn8;
     private JButton lowerBtn1, lowerBtn2, lowerBtn3, lowerBtn4;
     private JLabel dateTodayLabel;
-    Timer clockTimer;
+    private Timer clockTimer;
+    private StatusTimePanel statusTimePanel;
+    int arc = 40;
 
-    Homepage(){
+    public Homepage(){
         //Frame
+        super("DanDieLion");
+        
+        initializeComponents();
+
+        startClockTimer();
+
+        this.setVisible(true);
+        validate();
+    }
+
+    private void setupFrame(){
         this.setTitle("DanDieLion");    
         this.setSize(550,1000);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setBackground(Color.red);
         this.setLayout(new BorderLayout());
+        this.setUndecorated(true);
+        this.setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), arc, arc));
+    }
 
+    private void initializeComponents(){
         statusBar = createStatusBar();
         appPanel = createAppPanel();  
         panelTime = timePanel();
@@ -35,10 +56,6 @@ public class Homepage extends JFrame implements ActionListener{
         this.add(statusBar, BorderLayout.NORTH);
         this.add(panelTime, BorderLayout.CENTER);
         this.add(appPanel, BorderLayout.SOUTH);
-
-        startClockTimer();
-
-        validate();
     }
 
 
@@ -46,8 +63,8 @@ public class Homepage extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == clockButton){
             this.dispose();
-            Clock window = new Clock();
-            System.out.println("test");
+            Alarm clockApp = new Alarm();
+            clockApp.setVisible(true);
         }
     }
 
@@ -62,42 +79,20 @@ public class Homepage extends JFrame implements ActionListener{
         clockTimer.start();
     }
 
-    public LocalDateTime getTimeNow(){
-        LocalDateTime timeNow = LocalDateTime.now();
-        return timeNow;
-    }
-
-    public String getDateTime(){
-        LocalDate today = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM");
-
-        String formattedDate = today.format(formatter);
-        return formattedDate;
-    }
-
-    
-    public String timeFormat(){
-        LocalDateTime timeNow = getTimeNow();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        String timestring = timeNow.format(formatter);   
-        
-        return timestring;
-    }
 
     public void updateClock(){
-        String timestring = timeFormat();
-        statusTimeLabel.setText(timestring);
+        String timestring = TimeDate.getFormattedTime();
+        statusTimePanel.updateTime(timestring);    
+        bigTimerLabel.setText(timestring);
 
-        if(bigTimerLabel != null){
-            bigTimerLabel.setText(timestring);
+        if(dateTodayLabel != null) {
+            dateTodayLabel.setText(TimeDate.getFormattedDay());
         }
-        getDateTime();
     }
 
     public JPanel bigTimer(){
         JPanel bigTimer = new JPanel();
         bigTimer.setOpaque(false);
-        bigTimer.setLayout(new FlowLayout());
         bigTimer.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         bigTimerLabel = new JLabel();
         bigTimerLabel.setFont(new Font("Arial", Font.BOLD, 70));
@@ -119,7 +114,7 @@ public class Homepage extends JFrame implements ActionListener{
     public JPanel dateToday(){
         JPanel dateToday = new JPanel();
         dateToday.setOpaque(false);
-        dateTodayLabel = new JLabel(getDateTime());
+        dateTodayLabel = new JLabel(TimeDate.getFormattedDay());
         dateToday.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         dateTodayLabel.setFont(new Font("Arial", Font.BOLD, 40));
         dateTodayLabel.setForeground(Color.WHITE);
@@ -190,30 +185,14 @@ public class Homepage extends JFrame implements ActionListener{
         searchBox.setOpaque(false);
 
         // Search icon
-        JPanel searchIcon = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2d = (Graphics2D) g;
-                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2d.setColor(new Color(200, 200, 255));
-                g2d.setStroke(new BasicStroke(2.5f));
-                
-                // Draw magnifying glass circle
-                g2d.drawOval(2, 2, 12, 12);
-                
-                // Draw handle
-                g2d.drawLine(12, 12, 18, 18);
-            }
-        };
-        searchIcon.setPreferredSize(new Dimension(20, 20));
-        searchIcon.setOpaque(false);
 
 
         JLabel searchLabel =new JLabel("Search");
         searchLabel.setFont(new Font("Arial", Font.PLAIN, 16));
         searchLabel.setForeground(Color.WHITE);
         searchLabel.setOpaque(false);
+
+        SearchIcon searchIcon = new SearchIcon();
         
         searchBox.add(searchIcon);
         searchBox.add(searchLabel); 
@@ -248,54 +227,13 @@ public class Homepage extends JFrame implements ActionListener{
         return panelTime;
     }
 
-    
-
 
     public JPanel statusBatteryWifiPanel(){
         JPanel statusBatteryWifiPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 10));
         statusBatteryWifiPanel.setOpaque(false);
         
-        // Wifi Signal Icon
-        JPanel wifiIcon = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2d = (Graphics2D) g;
-                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2d.setColor(Color.WHITE);
-                
-                // Draw wifi signal bars (4 bars)
-                int[] heights = {4, 7, 10, 13};
-                for (int i = 0; i < 4; i++) {
-                    g2d.fillRect(i * 4, 13 - heights[i], 3, heights[i]);
-                }
-            }
-        };
-        wifiIcon.setPreferredSize(new Dimension(18, 16));
-        wifiIcon.setOpaque(false);
-        
-        // Battery Icon
-        JPanel batteryIcon = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2d = (Graphics2D) g;
-                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2d.setColor(Color.WHITE);
-                
-                // Battery body
-                g2d.setStroke(new BasicStroke(1.5f));
-                g2d.drawRoundRect(1, 3, 18, 10, 2, 2);
-                
-                // Battery tip
-                g2d.fillRect(20, 6, 2, 4);
-                
-                // Battery fill (showing ~80% charge)
-                g2d.fillRect(3, 5, 13, 6);
-            }
-        };
-        batteryIcon.setPreferredSize(new Dimension(24, 16));
-        batteryIcon.setOpaque(false);
+        WifiIcon wifiIcon = new WifiIcon();
+        BatteryIcon batteryIcon = new BatteryIcon();
         
         statusBatteryWifiPanel.add(wifiIcon);
         statusBatteryWifiPanel.add(batteryIcon);
@@ -304,30 +242,15 @@ public class Homepage extends JFrame implements ActionListener{
     }
 
 
-
-    public JPanel statusTimePanel(){
-        String timestring = timeFormat();
-        
-        Font timeFont = new Font("Arial", Font.PLAIN, 16);
-        JPanel statusTimePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
-        statusTimePanel.setOpaque(false);
-        
-        statusTimeLabel = new JLabel(timestring);
-        statusTimeLabel.setFont(timeFont);
-        statusTimeLabel.setForeground(Color.WHITE);
-        statusTimePanel.add(statusTimeLabel);
-        
-        return statusTimePanel;
-    }
-
     public JPanel createStatusBar(){
         JPanel statusBar = new JPanel();
         statusBar.setLayout(new BorderLayout());
         statusBar.setPreferredSize(new Dimension(0,35));
         statusBar.setBackground(new Color(130, 0, 220)); // Purple color like in the image
         statusBar.setOpaque(true);
-        JPanel timePanel = statusTimePanel();
-        statusBar.add(timePanel,BorderLayout.WEST);
+
+        statusTimePanel = new StatusTimePanel(TimeDate.getFormattedTime());
+        statusBar.add(statusTimePanel,BorderLayout.WEST);
         statusBar.add(statusBatteryWifiPanel(),BorderLayout.EAST);
 
 
@@ -364,10 +287,6 @@ public class Homepage extends JFrame implements ActionListener{
         return appPanel;
     }
 
-
-
-
-
     public JButton createIconButton(String label) {
         ImageIcon icon = new ImageIcon("assets/clock.jpg");
         JButton btn = new JButton(label);
@@ -385,7 +304,7 @@ public class Homepage extends JFrame implements ActionListener{
         upperApps.setMaximumSize(new Dimension(480, 180));
         upperApps.setBackground(Color.gray);
          
-        clockButton = createIconButton("Clock");
+        upperBtn1 = createIconButton("Clock");
         upperBtn2 = createIconButton("UApp 2");
         upperBtn3 = createIconButton("UApp 3");
         upperBtn4 = createIconButton("UApp 4");
@@ -394,7 +313,7 @@ public class Homepage extends JFrame implements ActionListener{
         upperBtn7 = createIconButton("UApp 7");
         upperBtn8 = createIconButton("UApp 8");
 
-        upperApps.add(clockButton);
+        upperApps.add(upperBtn1);
         upperApps.add(upperBtn2);
         upperApps.add(upperBtn3);
         upperApps.add(upperBtn4);
@@ -437,15 +356,17 @@ public class Homepage extends JFrame implements ActionListener{
         lowerApps.setMaximumSize(new Dimension(480, 85));
         lowerApps.setBackground(Color.gray);
 
-        lowerBtn1 = createIconButton("App 1");
+        clockButton = createIconButton("App 1");
         lowerBtn2 = createIconButton("App 2");
         lowerBtn3 = createIconButton("App 3");
         lowerBtn4 = createIconButton("App 4");
 
-        lowerApps.add(lowerBtn1);
+        lowerApps.add(clockButton);
         lowerApps.add(lowerBtn2);
         lowerApps.add(lowerBtn3);
         lowerApps.add(lowerBtn4);
+
+        clockButton.addActionListener(this);
             
         return lowerApps;
     }
