@@ -2,6 +2,7 @@ package homepage;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.geom.RoundRectangle2D;
 
 public abstract class BaseApp extends JFrame {
@@ -21,5 +22,10 @@ public abstract class BaseApp extends JFrame {
         this.setShape(new RoundRectangle2D.Double(
             0, 0, getWidth(), getHeight(), arc, arc
         ));
+    }
+
+    public void onTabChanged(ActionEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'onTabChanged'");
     }
 }

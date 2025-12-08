@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-import apps.Clock.Alarm;
-import apps.Clock.Clock;
+import apps.Clock.Alarmtest;
+import apps.Clock.Alarm.Alarm;
 import homepage.newGUI.BatteryIcon;
 import homepage.newGUI.SearchIcon;
 import homepage.newGUI.WifiIcon;
