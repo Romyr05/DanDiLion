@@ -93,8 +93,6 @@ public abstract class ClockBaseApp extends BaseApp implements ActionListener {
             }
         });
 
-
-
         
         // Add listener to the entire frame
         this.addMouseListener(swipe);
@@ -125,10 +123,11 @@ public abstract class ClockBaseApp extends BaseApp implements ActionListener {
     }
 
     private void goBackToHomePage() {
-        this.dispose();
+
         SwingUtilities.invokeLater(() -> {
             Homepage homePage = new Homepage();
             homePage.setVisible(true);
+            this.dispose();
         });
     }
 

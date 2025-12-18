@@ -2,18 +2,13 @@ package apps.Clock.Alarm;
 
 import apps.Clock.NewGUI.*;
 
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
+import java.awt.Toolkit;
+
 
 
 public class AlarmChecker extends Thread {
@@ -21,7 +16,6 @@ public class AlarmChecker extends Thread {
     private List<AlarmData> alarms = new ArrayList<>();
     private boolean running = true;
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-    private Clip alarmClip;
    
     private AlarmChecker() {
         setDaemon(true); // Thread dies when app closes
@@ -57,7 +51,6 @@ public class AlarmChecker extends Thread {
             try {
                 // Get current time (HH:mm format)
                 String currentTime = LocalTime.now().format(timeFormatter);
-                playSound();
 
                 // Check each alarm
                 for (AlarmData alarm : new ArrayList<>(alarms)) {
@@ -83,18 +76,9 @@ public class AlarmChecker extends Thread {
     }
     
     private synchronized void playSound() {
-        try {
-            File soundFile = new File("path/to/alarm/sound.wav");
-            if (soundFile.exists()) {
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-                alarmClip = AudioSystem.getClip();
-                alarmClip.open(audioInputStream);
-                alarmClip.start();
-            }
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            e.printStackTrace();
-        }
+        Toolkit.getDefaultToolkit().beep();
     }
+
     private static class AlarmData {
         String time;
         CustomToggle toggle;

@@ -1,14 +1,9 @@
 package homepage;
 
 import javax.swing.*;
-
-import homepage.newGUI.BatteryIcon;
-import homepage.newGUI.WifiIcon;
-
 import java.awt.*;
 
 public class StatusBar extends JPanel {
-
     private StatusTimePanel timePanel;
     private Timer clockTimer;
 
@@ -18,16 +13,22 @@ public class StatusBar extends JPanel {
         setBackground(new Color(130, 0, 220));
         setOpaque(true);
 
+        // Time display on left
         timePanel = new StatusTimePanel(TimeDate.getFormattedTime());
         add(timePanel, BorderLayout.WEST);
 
-        JPanel icons = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 10));
-        icons.setOpaque(false);
-        icons.add(new WifiIcon());
-        icons.add(new BatteryIcon());
-        add(icons, BorderLayout.EAST);
+        // Icons on right
+        add(createIconPanel(), BorderLayout.EAST);
 
         startClockTimer();
+    }
+
+    private JPanel createIconPanel() {
+        JPanel icons = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 10));
+        icons.setOpaque(false);
+        icons.add(new StatusIcons.WifiIcon());
+        icons.add(new StatusIcons.BatteryIcon());
+        return icons;
     }
 
     private void startClockTimer() {
@@ -38,4 +39,3 @@ public class StatusBar extends JPanel {
         clockTimer.start();
     }
 }
-
