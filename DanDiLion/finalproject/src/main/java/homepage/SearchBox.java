@@ -6,13 +6,30 @@ import java.awt.*;
 public class SearchBox extends JPanel {
 
     public SearchBox() {
-        setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
-        setPreferredSize(new Dimension(380, 45));
-        setMaximumSize(new Dimension(380, 45));
-        setBorder(BorderFactory.createLineBorder(new Color(200, 150, 255, 100), 3, true));
+        setLayout(new FlowLayout(FlowLayout.LEFT, 15, 12));
+        setPreferredSize(new Dimension(450, 50));
+        setMaximumSize(new Dimension(450, 50));
         setOpaque(false);
         
         initializeComponents();
+    }
+    
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        
+        // Draw rounded dark semi-transparent background for dark theme
+        g2d.setColor(new Color(40, 40, 45, 200)); // Dark gray with transparency
+        g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 25, 25);
+        
+        // Draw subtle border
+        g2d.setColor(new Color(255, 255, 255, 60));
+        g2d.setStroke(new BasicStroke(1.5f));
+        g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 25, 25);
+        
+        g2d.dispose();
     }
 
     private void initializeComponents() {

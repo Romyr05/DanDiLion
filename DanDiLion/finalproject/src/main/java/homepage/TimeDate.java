@@ -8,7 +8,7 @@ public class TimeDate {
 
     public static String getFormattedTime() {
         LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm:ss");
+        DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm");
         return now.format(formatterTime);
     }
 

@@ -11,8 +11,8 @@ public class ScrollIndicator extends JPanel {
         this.totalDots = totalDots;
         this.activeDot = activeDot;
         
-        setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
-        setBackground(Color.GRAY);
+        setLayout(new FlowLayout(FlowLayout.CENTER, 6, 0));
+        setOpaque(false);
         setMaximumSize(new Dimension(500, 20));
         
         createDots();
@@ -49,8 +49,13 @@ public class ScrollIndicator extends JPanel {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setColor(isActive ? Color.WHITE : Color.LIGHT_GRAY);
-            g2d.fillOval(0, 0, getWidth(), getHeight());
+            if (isActive) {
+                g2d.setColor(Color.WHITE);
+                g2d.fillOval(0, 0, getWidth(), getHeight());
+            } else {
+                g2d.setColor(new Color(255, 255, 255, 120)); // Semi-transparent white
+                g2d.fillOval(0, 0, getWidth(), getHeight());
+            }
         }
     }
 }

@@ -19,7 +19,7 @@ public class WeatherWidget extends JPanel {
         
         // Temperature label
         tempLabel = new JLabel("+18°C");
-        tempLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        tempLabel.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         tempLabel.setForeground(Color.WHITE);
         add(tempLabel);
     }

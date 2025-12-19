@@ -9,15 +9,9 @@ import java.util.function.Consumer;
 
 public class CalendarHeader extends JPanel {
     private JLabel monthYearLabel;
-    private Consumer<LocalDate> callback;   //stores value Localdate input but does not have any return value, it just 
-                                            // it just does something with the input
-                                            //It allows event driven methods to be passed onto it
-                                            //When a button that is consumer is clicked it just passes that it is clicked and
-                                            // and lets the app decide what is its behaviour
     private LocalDate currentDate;
 
     public CalendarHeader(LocalDate date, Consumer<LocalDate> callback) {
-        this.callback = callback;
         this.currentDate = date;
         
         setLayout(new BorderLayout());

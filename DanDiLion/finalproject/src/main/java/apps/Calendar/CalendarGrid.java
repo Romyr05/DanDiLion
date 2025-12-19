@@ -10,6 +10,11 @@ public class CalendarGrid extends JPanel {
 
     private Consumer<LocalDate> dateCallback;   //Stores data but does not return 
                                                 //It also lets you pass the behaviour 
+                                                //stores value Localdate input but does not have any return value, it just 
+                                            // it just does something with the input
+                                            //It allows event driven methods to be passed onto it
+                                            //When a button that is consumer is clicked it just passes that it is clicked and
+                                            // and lets the app decide what is its behaviour
 
     public CalendarGrid(LocalDate date, LocalDate selected, Consumer<LocalDate> callback) {
         this.dateCallback = callback;

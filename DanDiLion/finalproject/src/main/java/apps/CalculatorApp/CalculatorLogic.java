@@ -46,7 +46,7 @@ public class CalculatorLogic {
         }
     }
 
-
+//Continue
     public void toggleSign() {
         double value = Double.parseDouble(currentInput.toString());
         value = -value;
@@ -71,7 +71,7 @@ public class CalculatorLogic {
         startNewNumber = true;
     }
 
-    
+
     public void calculate() {
         if (operator.isEmpty()) return;
         
