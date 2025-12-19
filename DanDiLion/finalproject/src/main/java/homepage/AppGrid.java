@@ -26,8 +26,7 @@ public class AppGrid extends JPanel {
         
         // Scroll indicator dots
         add(new ScrollIndicator(4, 0));
-        add(Box.createRigidArea(new Dimension(0, 20)));
-        add(Box.createRigidArea(new Dimension(0, 10)));
+        add(Box.createRigidArea(new Dimension(0, 30)));
         
         // Lower 4 apps (1 row of 4)
         add(createLowerApps());
@@ -86,7 +85,7 @@ public class AppGrid extends JPanel {
         
         JPanel panel = new JPanel(new GridLayout(1, 4, 12, 12));
         panel.setOpaque(false);
-        panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
         // Darker, more muted colors for dock apps that work with dark theme
         Color[] dockColors = {
