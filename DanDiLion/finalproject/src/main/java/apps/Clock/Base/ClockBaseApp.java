@@ -21,13 +21,13 @@ public abstract class ClockBaseApp extends BaseApp implements ActionListener {
     protected JPanel clockTabs;
     
     private final String[] tabs = {"Alarm", "Timer", "Stopwatch"};
-    private final String[] icons = {"a", "b", "c"};
+    private final String[] icons = {"A", "B", "C"};
 
     // 0-> Alarm, 1 -> Timer, 2 -> Stopwatch
 
     public ClockBaseApp(String title, int defaultTabIndex) {
         super(title);
-        this.activeTabIndex = defaultTabIndex;   //Different tab index based on app
+        this.activeTabIndex = defaultTabIndex;   //Different tab index based on app   (0,1,2)
         this.add(new StatusBar(), BorderLayout.NORTH);
         
         this.add(createHeaderPanel(), BorderLayout.SOUTH);

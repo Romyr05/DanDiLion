@@ -75,10 +75,13 @@ public class AlarmChecker extends Thread {
         }
     }
     
+    //beep if finish na yung alarm
     private synchronized void playSound() {
         Toolkit.getDefaultToolkit().beep();
     }
 
+    //need to have an alarm data para mabal an if na trigger gd man siya in that minute and to check if what is the time and 
+    // its toggle(on or off)
     private static class AlarmData {
         String time;
         CustomToggle toggle;

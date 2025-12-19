@@ -27,7 +27,7 @@ public class CalendarHeader extends JPanel {
         // Center: Month/Year     
         monthYearLabel = new JLabel();
         monthYearLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        monthYearLabel.setForeground(new Color(255, 87, 87));
+        monthYearLabel.setForeground(Color.WHITE);
         monthYearLabel.setHorizontalAlignment(SwingConstants.CENTER);
         updateDate(date);
         

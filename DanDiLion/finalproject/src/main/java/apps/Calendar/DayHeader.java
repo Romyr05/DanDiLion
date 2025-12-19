@@ -3,6 +3,7 @@ package apps.Calendar;
 import java.awt.*;
 import javax.swing.*;
 
+//design for each days
 public class DayHeader extends JLabel {
     public DayHeader(String dayName) {
         super(dayName, SwingConstants.CENTER);

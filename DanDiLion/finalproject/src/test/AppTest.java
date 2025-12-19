@@ -16,8 +16,8 @@ public class AppTest {
     // Test if images are there and correct file path
     // Testing only 4 images since they are the only ones needed
     @Test
-    public void testImagesExist() {
-        File assets = new File("src/main/java/assets");
+    public void testImagesExist() {  
+        File assets = new File("src/main/java/assets/jMGOD");
         System.out.println("Looking for assets folder...");
         if (assets.exists()) {
             System.out.println("Found assets folder!");

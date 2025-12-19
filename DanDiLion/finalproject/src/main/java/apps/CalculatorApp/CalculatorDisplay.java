@@ -3,6 +3,7 @@ package apps.CalculatorApp;
 import java.awt.*;
 import javax.swing.*;
 
+//just displays the sort of screen of the calculator
 public class CalculatorDisplay extends JLabel {
     
     public CalculatorDisplay() {
@@ -20,6 +21,8 @@ public class CalculatorDisplay extends JLabel {
         adjustFontSize(text.length());
     }
 
+
+    //adjust font nlng if magdamo input just for it not to go over
     private void adjustFontSize(int length) {
         int fontSize;
         

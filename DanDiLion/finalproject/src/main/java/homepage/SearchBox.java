@@ -3,6 +3,8 @@ package homepage;
 import javax.swing.*;
 import java.awt.*;
 
+
+//Panel searchbox for now since there is nothing to search if i made it a search box 
 public class SearchBox extends JPanel {
 
     public SearchBox() {

@@ -46,14 +46,14 @@ public class CalculatorLogic {
         }
     }
 
-//Continue
+//dow minus and plus sign so it just converts it to + to - and viceversa
     public void toggleSign() {
         double value = Double.parseDouble(currentInput.toString());
         value = -value;
         currentInput = new StringBuilder(formatNumber(value));
     }
 
-    //
+    //percentage it (convert input to number parse it then using formatnumber go back to string )
     public void applyPercentage() {
         double value = Double.parseDouble(currentInput.toString());
         value = value / 100;
@@ -61,17 +61,19 @@ public class CalculatorLogic {
         resultDisplayed = true;
     }
 
+    // if operator is set
     public void setOperator(String op) {
         if (!operator.isEmpty() && !startNewNumber) {
-            calculate();
+            calculate();    //if pending then calculate anay then go sa imo nga i butang nga operator
         }
         
         firstOperand = Double.parseDouble(currentInput.toString());
         operator = op;
-        startNewNumber = true;
+        startNewNumber = true;   //go back user has not inputted any value again
     }
 
 
+    //calculates it normally like calculator
     public void calculate() {
         if (operator.isEmpty()) return;
         
@@ -107,12 +109,14 @@ public class CalculatorLogic {
         resultDisplayed = true;
     }
 
+    //formats it to become string
     private String formatNumber(double number) {
-        if (number == (long) number) {
+        if (number == (long) number) {   //checks if the nubmer is integer ((long) num
+                                        // converts it to long para madula ang decimals)
             return String.format("%d", (long) number);
-        } else {
-            String formatted = String.format("%.8f", number);
-            formatted = formatted.replaceAll("0*$", "").replaceAll("\\.$", "");
+        } else {                                                   //if decimal
+            String formatted = String.format("%.8f", number);   //limit to only 8 decimal palces
+            formatted = formatted.replaceAll("0*$", "").replaceAll("\\.$", "");   //remove trailing dot or 0 na d need
             return formatted;
         }
     }

@@ -3,6 +3,7 @@ package homepage;
 import javax.swing.*;
 import java.awt.*;
 
+//timepanel for the middle of the homepage
 public class StatusTimePanel extends JPanel {
 
     private JLabel timeLabel;

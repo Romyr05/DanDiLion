@@ -52,6 +52,11 @@
     "endTime": "2025-12-19 11:34:53",
     "durationSeconds": 1500,
     "course": "CMSC 123"
+  },
+  {
+    "startTime": "2025-12-19 15:41:53",
+    "endTime": "2025-12-19 16:06:53",
+    "durationSeconds": 1500,
+    "course": "CMSC 123"
   }
 ]
-

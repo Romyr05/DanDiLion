@@ -82,6 +82,7 @@ public class AppGrid extends JPanel {
                 g2d.dispose();
             }
         };
+        dockPanel.setBackground(Color.black);
         
         JPanel panel = new JPanel(new GridLayout(1, 4, 12, 12));
         panel.setOpaque(false);
@@ -99,7 +100,7 @@ public class AppGrid extends JPanel {
         panel.add(createStyledIconButton("src/main/java/assets/clockImage.jpg", "CLOCK", dockColors[0]));
         panel.add(createStyledIconButton("src/main/java/assets/calcImage.jpg", "CALCULATOR", dockColors[1]));
         panel.add(createStyledIconButton("src/main/java/assets/calendarImage.jpg", "CALENDAR", dockColors[2]));
-        panel.add(createStyledIconButton("assets/app4.png", "NOTES", dockColors[3]));
+        panel.add(createStyledIconButton("src/main/java/assets/jMGOD.png", "NOTES", dockColors[3]));
         
         dockPanel.add(panel, BorderLayout.CENTER);
         dockPanel.setPreferredSize(new Dimension(480, 100));
@@ -112,88 +113,91 @@ public class AppGrid extends JPanel {
         JPanel container = new JPanel(new BorderLayout());
         container.setOpaque(false);
         container.setPreferredSize(new Dimension(80, 80));
-        
-        StyledAppIcon iconButton = new StyledAppIcon(imagePath, backgroundColor);
-        
-        // Add click action if command is provided
-        if (actionCommand != null && actionListener != null) {
+
+        boolean isDock = actionCommand != null;
+
+        StyledAppIcon iconButton =
+            new StyledAppIcon(imagePath, backgroundColor, !isDock);
+
+        if (isDock && actionListener != null) {
             iconButton.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     actionListener.actionPerformed(
-                        new java.awt.event.ActionEvent(iconButton, 
-                            java.awt.event.ActionEvent.ACTION_PERFORMED, 
-                            actionCommand)
+                        new java.awt.event.ActionEvent(
+                            iconButton,
+                            java.awt.event.ActionEvent.ACTION_PERFORMED,
+                            actionCommand
+                        )
                     );
                 }
             });
         }
-        
+
         container.add(iconButton, BorderLayout.CENTER);
         return container;
     }
     
-    // Styled app icon with rounded corners and pastel background
+        // Styled app icon with rounded corners and pastel background
     private class StyledAppIcon extends JLabel {
-        private String imagePath;
+        private Image image;
         private Color bgColor;
+        private boolean showBackground;
         private boolean isHovered = false;
         private static final int ICON_SIZE = 70;
-        
-        public StyledAppIcon(String imagePath, Color bgColor) {
-            this.imagePath = imagePath;
+
+        public StyledAppIcon(String imagePath, Color bgColor, boolean showBackground) {
             this.bgColor = bgColor;
+            this.showBackground = showBackground;
+
             setPreferredSize(new Dimension(ICON_SIZE, ICON_SIZE));
             setCursor(new Cursor(Cursor.HAND_CURSOR));
             setOpaque(false);
-            
+
+            try {
+                image = javax.imageio.ImageIO.read(new java.io.File(imagePath));
+            } catch (Exception e) {
+                image = null;
+            }
+
             addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    isHovered = true;
-                    repaint();
-                }
-                
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    isHovered = false;
-                    repaint();
-                }
+                @Override public void mouseEntered(MouseEvent e) { isHovered = true; repaint(); }
+                @Override public void mouseExited(MouseEvent e) { isHovered = false; repaint(); }
             });
         }
-        
+
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            
-            // Draw rounded background
-            Color drawColor = isHovered ? bgColor.brighter() : bgColor;
-            g2d.setColor(drawColor);
-            g2d.fillRoundRect(0, 0, ICON_SIZE, ICON_SIZE, 20, 20);
-            
-            // Draw icon or placeholder
-            try {
-                java.awt.image.BufferedImage img = javax.imageio.ImageIO.read(new java.io.File(imagePath));
-                if (img != null) {
-                    int padding = 15;
-                    g2d.drawImage(img, padding, padding, ICON_SIZE - 2*padding, ICON_SIZE - 2*padding, null);
-                } else {
-                    drawPlaceholder(g2d);
-                }
-            } catch (Exception e) {
-                drawPlaceholder(g2d);
+
+            // Background ONLY for upper apps
+            if (showBackground) {
+                Color draw = isHovered ? bgColor.brighter() : bgColor;
+                g2d.setColor(draw);
+                g2d.fillRoundRect(0, 0, ICON_SIZE, ICON_SIZE, 20, 20);
             }
-            
+
+            if (image != null) {
+                int padding = showBackground ? 15 : 0;
+                g2d.drawImage(
+                    image,
+                    padding,
+                    padding,
+                    ICON_SIZE - padding * 2,
+                    ICON_SIZE - padding * 2,
+                    null
+                );
+            } else if (showBackground) {
+                // Placeholder for upper apps
+                g2d.setColor(new Color(255, 255, 255, 180));
+                int p = 20;
+                g2d.fillRoundRect(p, p, ICON_SIZE - 2*p, ICON_SIZE - 2*p, 8, 8);
+            }
+
             g2d.dispose();
         }
-        
-        private void drawPlaceholder(Graphics2D g2d) {
-            // Draw simple app icon placeholder
-            g2d.setColor(new Color(255, 255, 255, 180));
-            int padding = 20;
-            g2d.fillRoundRect(padding, padding, ICON_SIZE - 2*padding, ICON_SIZE - 2*padding, 8, 8);
-        }
+
     }
 }

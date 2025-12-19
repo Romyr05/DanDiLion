@@ -51,7 +51,7 @@ public class Homepage extends BaseApp implements ActionListener {
         contentPane.repaint();
     }
     
-    // Custom panel with dark-themed wallpaper background
+    // WALLPAPER BACKGROUND (DARK TO SORT OF GRAY)
     private class GradientPanel extends JPanel {
         public GradientPanel() {
             setOpaque(true); // Make it opaque so background shows
@@ -67,14 +67,15 @@ public class Homepage extends BaseApp implements ActionListener {
             int width = getWidth();
             
             // Dark-themed gradient wallpaper - subtle dark gray to black
-            Color[] colors = {
-                new Color(20, 20, 25),    // Very dark gray-blue at top
-                new Color(15, 15, 20),    // Darker gray
-                new Color(10, 10, 15),    // Almost black
-                new Color(8, 8, 12),      // Deep black
-                new Color(12, 12, 18)     // Slightly lighter at bottom
+            Color[] colors = {    //GRAY DARK -> BLACK
+                new Color(20, 20, 25),    
+                new Color(15, 15, 20),    
+                new Color(10, 10, 15),    
+                new Color(8, 8, 12),      
+                new Color(12, 12, 18)     
             };
             
+            //stops at that end yung color
             float[] stops = {0.0f, 0.25f, 0.5f, 0.75f, 1.0f};
             
             // Use LinearGradientPaint for smooth dark gradient

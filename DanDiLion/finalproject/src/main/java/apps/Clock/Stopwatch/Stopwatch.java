@@ -196,8 +196,10 @@ public class Stopwatch extends ClockBaseApp {
             return;
         }
         
-        // Find shortest and longest laps
-        long shortest = Long.MAX_VALUE;
+        //Loops all laps 
+        // Find shortest and longest laps and index position of each on the list
+        //first iteration set both shortest and longest to that and then compare after each
+        long shortest = Long.MAX_VALUE;    
         long longest = Long.MIN_VALUE;
         int shortestIndex = -1;
         int longestIndex = -1;

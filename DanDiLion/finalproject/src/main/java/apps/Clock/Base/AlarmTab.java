@@ -47,7 +47,7 @@ public class AlarmTab extends JPanel {
         contentPanel.add(textLabel);
         contentPanel.add(Box.createVerticalGlue());
 
-        // Active indicator (Line beneath the )
+        // Active indicator (Line beneath the tabs)
         if (isActive) {
             this.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));   //Only make the south border white
         }

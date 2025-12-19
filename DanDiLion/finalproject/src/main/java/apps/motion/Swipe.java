@@ -3,6 +3,7 @@ package apps.motion;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+//Motion for the overall cellphone which is the swipe
 public class Swipe extends MouseAdapter {
     private int startX;
     private int startY;

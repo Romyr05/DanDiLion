@@ -8,7 +8,7 @@ import javax.swing.*;
 public class NavButton extends JButton {
     public NavButton(String text) {
         super(text);
-        setPreferredSize(new Dimension(30, 30));
+        setPreferredSize(new Dimension(50, 30));
         setFont(new Font("Arial", Font.BOLD, 16));
         setBackground(Color.BLACK);
         setForeground(new Color(255, 87, 87));

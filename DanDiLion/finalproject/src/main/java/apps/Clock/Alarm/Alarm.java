@@ -148,16 +148,17 @@ public class Alarm extends ClockBaseApp {
         rightPanel.add(Box.createRigidArea(new Dimension(0, 80)));
         rightPanel.add(toggle);
 
-        // NEW: Add listener to re-register when toggle changes
+        //Used this para dow ma freeze and ui when ma click ka instead of the thread.sleep
+        //Add listener to re-register when toggle changes
         toggle.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(MouseEvent e) { //react to only click
                 // Wait for toggle animation to complete, then re-register
-                Timer timer = new Timer(100, evt -> {
+                Timer timer = new Timer(100, evt -> {   //Wait 100 ms then re-register and then stop the timer after it register
                     alarmChecker.registerAlarm(time, toggle);
                     ((Timer)evt.getSource()).stop();
                 });
-                timer.setRepeats(false);
+                timer.setRepeats(false);   //run only once
                 timer.start();
             }
         });

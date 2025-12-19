@@ -124,7 +124,7 @@ public class PomodoroStudy extends RoundedPanel {
         add(buttonsPanel, BorderLayout.SOUTH);
 
         // ===== TIMER =====
-        timer = new Timer(10, e -> tick());
+        timer = new Timer(1000, e -> tick());
 
         // ===== ACTIONS =====
         btnStart.addActionListener(e -> onStartSession());

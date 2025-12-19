@@ -3,6 +3,8 @@ package homepage;
 import javax.swing.*;
 import java.awt.*;
 
+//Wifi panel bar on the above (with icons -> time, batt and wifi)
+
 public class StatusBar extends JPanel {
     private StatusTimePanel timePanel;
     private Timer clockTimer;
@@ -49,6 +51,7 @@ public class StatusBar extends JPanel {
         return icons;
     }
 
+    //time
     private void startClockTimer() {
         clockTimer = new Timer(1000, e -> {
             String now = TimeDate.getFormattedTime();

@@ -34,7 +34,7 @@ public class ScrollIndicator extends JPanel {
         repaint();
     }
 
-    // Inner class for individual dot
+    //Dot of active (only one page for now)
     private static class Dot extends JPanel {
         private boolean isActive;
 
@@ -43,6 +43,7 @@ public class ScrollIndicator extends JPanel {
             setPreferredSize(new Dimension(10, 10));
             setOpaque(false);
         }
+
 
         @Override
         protected void paintComponent(Graphics g) {
@@ -53,7 +54,7 @@ public class ScrollIndicator extends JPanel {
                 g2d.setColor(Color.WHITE);
                 g2d.fillOval(0, 0, getWidth(), getHeight());
             } else {
-                g2d.setColor(new Color(255, 255, 255, 120)); // Semi-transparent white
+                g2d.setColor(new Color(255, 255, 255, 120)); // semi white color to show
                 g2d.fillOval(0, 0, getWidth(), getHeight());
             }
         }
