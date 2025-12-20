@@ -2,7 +2,7 @@ package homepage;
 
 import javax.swing.*;
 
-import homepage.newGUI.WeatherWidget;
+import homepage.newgui.WeatherWidget;
 
 import java.awt.*;
 

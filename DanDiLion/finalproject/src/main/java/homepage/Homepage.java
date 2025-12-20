@@ -5,10 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-import apps.CalculatorApp.CalculatorApp;
-import apps.Calendar.CalendarApp;
-import apps.Clock.Alarm.Alarm;
-import apps.NotesApp.NotesApp;
+import apps.calculatorapp.CalculatorApp;
+import apps.calendar.CalendarApp;
+import apps.notesapp.NotesApp;
 
 public class Homepage extends BaseApp implements ActionListener {
     // Components
@@ -114,7 +113,7 @@ public class Homepage extends BaseApp implements ActionListener {
         
         switch (command) {
             case "CLOCK":
-                openApp(new Alarm());
+ //                 openApp(new Alarm()) // Alarm app removed;
                 break;
             case "CALCULATOR":
                 openApp(new CalculatorApp());
