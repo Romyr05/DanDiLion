@@ -1,3 +1,10 @@
+/*
+ * Project: DanDiLion
+ * Authors:
+ *   - Jemarco Briz
+ *   - John Romyr Lopez
+ *   - Janselle Alaysa
+ */
 package finalproject;
 
 import homepage.Homepage;

@@ -1,3 +1,4 @@
+// Author: Jemarrco Briz
 package apps.notesapp.brainventory;
 
 import javax.swing.*;

@@ -1,3 +1,4 @@
+// Author: Jemarrco Briz
 package apps.notesapp.brainventory;
 
 // Session: immutable-ish data holder describing a single study session

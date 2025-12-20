@@ -1,3 +1,4 @@
+// Author: Jemarrco Briz
 package apps.notesapp.brainventory;
 
 // Subject: simple data holder for a course (name + optional description)

@@ -1,3 +1,4 @@
+// Author: Jemarco Briz
 package apps.notesapp.brainventory;
 
 // CoursesPanel: UI for managing courses and showing per-course details

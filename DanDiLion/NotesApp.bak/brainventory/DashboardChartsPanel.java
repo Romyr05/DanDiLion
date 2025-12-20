@@ -1,3 +1,4 @@
+// Author: Jemarco Briz
 package apps.notesapp.brainventory;
 
 // DashboardChartsPanel: small bar-chart style summary of study hours per course

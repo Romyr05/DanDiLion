@@ -1,3 +1,4 @@
+// Author: Janselle Alaysa
 package apps.calculatorapp;
 
 public class CalculatorLogic {

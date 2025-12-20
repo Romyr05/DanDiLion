@@ -1,3 +1,4 @@
+// Author: Jemarrco Briz
 package apps.notesapp;
 
 import apps.notesapp.brainventory.*;

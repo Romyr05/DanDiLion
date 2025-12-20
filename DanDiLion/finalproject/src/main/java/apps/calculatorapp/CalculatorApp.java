@@ -1,3 +1,4 @@
+// Author: Janselle Alaysa
 package apps.calculatorapp;
 
 import java.awt.*;

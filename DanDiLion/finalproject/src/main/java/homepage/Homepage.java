@@ -1,3 +1,4 @@
+// Author: John Romyr Lopez
 package homepage;
 
 import java.awt.*;

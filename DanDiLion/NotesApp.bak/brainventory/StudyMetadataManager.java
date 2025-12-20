@@ -1,3 +1,5 @@
+// Author: Jemarrco Briz
+
 package apps.notesapp.brainventory;
 
 import com.google.gson.Gson;
